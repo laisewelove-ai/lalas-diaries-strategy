@@ -1403,57 +1403,48 @@
 <!-- ═══ NOTAS PARA A EDITORA ══════════════════════════════ -->
 <section class="sec" id="sec-editora">
   <div class="eyebrow">Beta Hoertel · Editora</div>
-  <div class="sec-title">Notas para a editora</div>
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;">
+    <div class="sec-title" style="margin-bottom:0;">Notas para a editora</div>
+    <button onclick="showAddRef()" id="btn-add-ref"
+      style="padding:12px 22px;background:var(--wlc-imperial-red);color:white;border:none;border-radius:12px;font:700 14px/1 var(--font-sans);cursor:pointer;display:flex;align-items:center;gap:8px;white-space:nowrap;">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+      Adicionar referência
+    </button>
+  </div>
 
-  <!-- Referências de edição -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:48px;">
-
-    <!-- Bloco de referências -->
-    <div>
-      <div style="font:700 11px/1 var(--font-sans);letter-spacing:0.16em;text-transform:uppercase;color:var(--fg3);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--wlc-border-warm);">Vídeos de referência</div>
-      <div id="refs-list" style="display:flex;flex-direction:column;gap:12px;margin-bottom:16px;"></div>
-      <div style="display:flex;gap:10px;">
-        <input id="ref-url" type="url" placeholder="URL do vídeo (YouTube, Vimeo…)"
-          style="flex:1;padding:10px 14px;border:1.5px solid var(--wlc-border-warm);border-radius:10px;font:400 14px/1 var(--font-sans);color:var(--wlc-space-cadet);background:white;outline:none;"
-          onfocus="this.style.borderColor='var(--wlc-imperial-red)'" onblur="this.style.borderColor='var(--wlc-border-warm)'">
-        <input id="ref-label" type="text" placeholder="Rótulo (ex: Michelle Choi V32)"
-          style="width:180px;padding:10px 14px;border:1.5px solid var(--wlc-border-warm);border-radius:10px;font:400 14px/1 var(--font-sans);color:var(--wlc-space-cadet);background:white;outline:none;"
-          onfocus="this.style.borderColor='var(--wlc-imperial-red)'" onblur="this.style.borderColor='var(--wlc-border-warm)'">
-        <button onclick="addRef()" style="padding:10px 18px;background:var(--wlc-imperial-red);color:white;border:none;border-radius:10px;font:700 13px/1 var(--font-sans);cursor:pointer;white-space:nowrap;">+ Adicionar</button>
-      </div>
+  <!-- Formulário de nova referência (oculto por padrão) -->
+  <div id="add-ref-form" style="display:none;background:white;border:1.5px solid var(--wlc-imperial-red);border-radius:16px;padding:20px 24px;margin-bottom:24px;">
+    <div style="font:700 11px/1 var(--font-sans);letter-spacing:0.16em;text-transform:uppercase;color:var(--wlc-imperial-red);margin-bottom:16px;">Nova referência</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <input id="ref-label" type="text" placeholder="Nome do canal / vídeo (ex: Michelle Choi — V32)"
+        style="flex:1;min-width:220px;padding:11px 14px;border:1.5px solid var(--wlc-border-warm);border-radius:10px;font:400 14px/1 var(--font-sans);color:var(--wlc-space-cadet);background:var(--wlc-cream);outline:none;"
+        onfocus="this.style.borderColor='var(--wlc-imperial-red)'" onblur="this.style.borderColor='var(--wlc-border-warm)'">
+      <input id="ref-url" type="url" placeholder="URL do vídeo (opcional)"
+        style="flex:1;min-width:220px;padding:11px 14px;border:1.5px solid var(--wlc-border-warm);border-radius:10px;font:400 14px/1 var(--font-sans);color:var(--wlc-space-cadet);background:var(--wlc-cream);outline:none;"
+        onfocus="this.style.borderColor='var(--wlc-imperial-red)'" onblur="this.style.borderColor='var(--wlc-border-warm)'">
+      <button onclick="addRef()" style="padding:11px 20px;background:var(--wlc-imperial-red);color:white;border:none;border-radius:10px;font:700 13px/1 var(--font-sans);cursor:pointer;">Adicionar</button>
+      <button onclick="hideAddRef()" style="padding:11px 16px;background:transparent;color:var(--fg3);border:1.5px solid var(--wlc-border-warm);border-radius:10px;font:700 13px/1 var(--font-sans);cursor:pointer;">Cancelar</button>
     </div>
+  </div>
 
-    <!-- Minutagem -->
-    <div>
-      <div style="font:700 11px/1 var(--font-sans);letter-spacing:0.16em;text-transform:uppercase;color:var(--fg3);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--wlc-border-warm);">Momentos específicos</div>
-      <div id="stamps-list" style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px;"></div>
-      <div style="display:flex;gap:10px;">
-        <input id="stamp-time" type="text" placeholder="0:00" maxlength="7"
-          style="width:80px;padding:10px 12px;border:1.5px solid var(--wlc-border-warm);border-radius:10px;font:900 16px/1 var(--font-sans);color:var(--wlc-imperial-red);background:white;outline:none;text-align:center;"
-          onfocus="this.style.borderColor='var(--wlc-imperial-red)'" onblur="this.style.borderColor='var(--wlc-border-warm)'">
-        <input id="stamp-ref" type="text" placeholder="De qual referência?"
-          style="width:160px;padding:10px 14px;border:1.5px solid var(--wlc-border-warm);border-radius:10px;font:400 14px/1 var(--font-sans);color:var(--wlc-space-cadet);background:white;outline:none;"
-          onfocus="this.style.borderColor='var(--wlc-imperial-red)'" onblur="this.style.borderColor='var(--wlc-border-warm)'">
-        <input id="stamp-note" type="text" placeholder="O que gostei nesse momento"
-          style="flex:1;padding:10px 14px;border:1.5px solid var(--wlc-border-warm);border-radius:10px;font:400 14px/1 var(--font-sans);color:var(--wlc-space-cadet);background:white;outline:none;"
-          onfocus="this.style.borderColor='var(--wlc-imperial-red)'" onblur="this.style.borderColor='var(--wlc-border-warm)'">
-        <button onclick="addStamp()" style="padding:10px 18px;background:var(--wlc-space-cadet);color:white;border:none;border-radius:10px;font:700 13px/1 var(--font-sans);cursor:pointer;white-space:nowrap;">+ Adicionar</button>
-      </div>
+  <!-- Lista de referências -->
+  <div id="refs-list" style="display:flex;flex-direction:column;gap:16px;margin-bottom:48px;">
+    <div style="font:400 15px/1 var(--font-sans);color:var(--fg3);padding:32px;text-align:center;border:1.5px dashed var(--wlc-border-warm);border-radius:16px;" id="refs-empty">
+      Nenhuma referência ainda — clique em "Adicionar referência" para começar.
     </div>
   </div>
 
   <!-- Manual de edição -->
   <div style="background:var(--wlc-space-cadet);border-radius:20px;overflow:hidden;">
-    <div style="padding:28px 32px 20px;display:flex;align-items:center;justify-content:space-between;">
+    <div style="padding:32px 36px 24px;display:flex;align-items:center;justify-content:space-between;">
       <div>
-        <div style="font:700 11px/1 var(--font-sans);letter-spacing:0.18em;text-transform:uppercase;color:var(--wlc-powder-blue);margin-bottom:8px;">Documento vivo</div>
-        <div style="font:800 22px/1 var(--font-sans);color:var(--wlc-alabaster);">Manual de edição · Lalas Diaries</div>
+        <div style="font:700 11px/1 var(--font-sans);letter-spacing:0.18em;text-transform:uppercase;color:var(--wlc-powder-blue);margin-bottom:10px;">Documento vivo</div>
+        <div style="font:800 26px/1 var(--font-sans);color:var(--wlc-alabaster);">Manual de edição · Lalas Diaries</div>
       </div>
-      <button onclick="addManualEntry()" style="padding:10px 20px;background:var(--wlc-imperial-red);color:white;border:none;border-radius:10px;font:700 13px/1 var(--font-sans);cursor:pointer;">+ Nova regra</button>
+      <button onclick="addManualEntry()" style="padding:12px 22px;background:var(--wlc-imperial-red);color:white;border:none;border-radius:12px;font:700 13px/1 var(--font-sans);cursor:pointer;">+ Nova regra</button>
     </div>
-    <div id="manual-list" style="padding:0 32px 32px;display:flex;flex-direction:column;gap:12px;"></div>
+    <div id="manual-list" style="padding:0 36px 36px;display:flex;flex-direction:column;gap:10px;"></div>
 
-    <!-- Regras pré-carregadas -->
     <script>
       const MANUAL_DEFAULTS = [
         { cat: 'Ritmo', rule: 'Corte rápido na intro — nunca mais de 3 segundos de silêncio antes da primeira fala.' },
@@ -2223,36 +2214,39 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(
 
 // ── SEÇÃO EDITORA ─────────────────────────────────────
 const ED_KEY = 'lalas-editora';
-function loadEditora() { try { return JSON.parse(localStorage.getItem(ED_KEY) || '{"refs":[],"stamps":[],"manual":[]}'); } catch(e) { return {refs:[],stamps:[],manual:[]}; } }
+function loadEditora() {
+  try {
+    const raw = JSON.parse(localStorage.getItem(ED_KEY) || '{}');
+    // migra formato antigo → novo (refs com stamps aninhados)
+    if (Array.isArray(raw.refs) && raw.refs.length && !Array.isArray(raw.refs[0].stamps)) {
+      raw.refs = raw.refs.map(r => ({...r, stamps: []}));
+    }
+    return { refs: raw.refs || [], manual: raw.manual || [] };
+  } catch(e) { return { refs: [], manual: [] }; }
+}
 function saveEditora(d) { localStorage.setItem(ED_KEY, JSON.stringify(d)); }
 
-function renderRefs() {
-  const d = loadEditora();
-  const el = document.getElementById('refs-list');
-  if (!el) return;
-  el.innerHTML = d.refs.map((r,i) => `
-    <div style="display:flex;align-items:center;gap:10px;background:var(--wlc-cream);border-radius:10px;padding:10px 14px;border:1px solid var(--wlc-border-warm);">
-      <div style="width:32px;height:32px;background:var(--wlc-imperial-red);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 3.19-.23 5.54-.44 6.83-.19 1.15-.99 2.05-2.11 2.26-1.16.23-4.24.41-7.45.41-3.11 0-6.24-.18-7.4-.41-1.12-.21-1.92-1.11-2.11-2.26C2.23 17.54 2 15.19 2 12c0-3.19.23-5.54.44-6.83.19-1.15.99-2.05 2.11-2.26C5.71 2.68 8.79 2.5 12 2.5c3.11 0 6.24.18 7.4.41 1.12.21 1.92 1.11 2.11 2.26z"/></svg>
-      </div>
-      <div style="flex:1;min-width:0;">
-        <div style="font:700 13px/1 var(--font-sans);color:var(--wlc-space-cadet);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${r.label}</div>
-        <a href="${r.url}" target="_blank" style="font:400 12px/1 var(--font-sans);color:var(--wlc-green-blue);text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;">${r.url}</a>
-      </div>
-      <button onclick="removeRef(${i})" style="width:28px;height:28px;border:none;background:transparent;color:var(--fg3);cursor:pointer;font-size:16px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;" title="Remover">×</button>
-    </div>
-  `).join('') || '<div style="font:400 15px/1 var(--font-sans);color:var(--fg3);padding:8px 0;">Nenhuma referência adicionada ainda.</div>';
+// Formulário de nova referência
+function showAddRef() {
+  document.getElementById('add-ref-form').style.display = 'block';
+  document.getElementById('btn-add-ref').style.display = 'none';
+  setTimeout(() => document.getElementById('ref-label').focus(), 50);
+}
+function hideAddRef() {
+  document.getElementById('add-ref-form').style.display = 'none';
+  document.getElementById('btn-add-ref').style.display = 'flex';
+  document.getElementById('ref-label').value = '';
+  document.getElementById('ref-url').value = '';
 }
 
 function addRef() {
-  const url = document.getElementById('ref-url').value.trim();
-  const label = document.getElementById('ref-label').value.trim() || url;
-  if (!url) return;
+  const label = document.getElementById('ref-label').value.trim();
+  const url   = document.getElementById('ref-url').value.trim();
+  if (!label) return;
   const d = loadEditora();
-  d.refs.push({ url, label });
+  d.refs.push({ label, url, stamps: [] });
   saveEditora(d);
-  document.getElementById('ref-url').value = '';
-  document.getElementById('ref-label').value = '';
+  hideAddRef();
   renderRefs();
 }
 
@@ -2260,38 +2254,89 @@ function removeRef(i) {
   const d = loadEditora(); d.refs.splice(i,1); saveEditora(d); renderRefs();
 }
 
-function renderStamps() {
-  const d = loadEditora();
-  const el = document.getElementById('stamps-list');
-  if (!el) return;
-  el.innerHTML = d.stamps.map((s,i) => `
-    <div style="display:flex;align-items:flex-start;gap:12px;background:white;border-radius:10px;padding:12px 14px;border:1px solid var(--wlc-border-warm);">
-      <div style="font:900 18px/1 var(--font-sans);color:var(--wlc-imperial-red);white-space:nowrap;min-width:44px;">${s.time}</div>
-      <div style="flex:1;min-width:0;">
-        <div style="font:700 12px/1 var(--font-sans);letter-spacing:0.08em;text-transform:uppercase;color:var(--fg3);margin-bottom:4px;">${s.ref}</div>
-        <div style="font:400 14px/1.45 var(--font-sans);color:var(--wlc-space-cadet);">${s.note}</div>
-      </div>
-      <button onclick="removeStamp(${i})" style="width:26px;height:26px;border:none;background:transparent;color:var(--fg3);cursor:pointer;font-size:15px;border-radius:6px;flex-shrink:0;" title="Remover">×</button>
-    </div>
-  `).join('') || '<div style="font:400 15px/1 var(--font-sans);color:var(--fg3);padding:4px 0;">Nenhum momento marcado ainda.</div>';
-}
-
-function addStamp() {
-  const time = document.getElementById('stamp-time').value.trim();
-  const ref  = document.getElementById('stamp-ref').value.trim();
-  const note = document.getElementById('stamp-note').value.trim();
+function addStampToRef(refIdx) {
+  const timeEl = document.getElementById(`st-time-${refIdx}`);
+  const noteEl = document.getElementById(`st-note-${refIdx}`);
+  const time = timeEl?.value.trim();
+  const note = noteEl?.value.trim();
   if (!time || !note) return;
   const d = loadEditora();
-  d.stamps.push({ time, ref, note });
+  d.refs[refIdx].stamps = d.refs[refIdx].stamps || [];
+  d.refs[refIdx].stamps.push({ time, note });
   saveEditora(d);
-  document.getElementById('stamp-time').value = '';
-  document.getElementById('stamp-ref').value = '';
-  document.getElementById('stamp-note').value = '';
-  renderStamps();
+  timeEl.value = ''; noteEl.value = '';
+  renderRefs();
 }
 
-function removeStamp(i) {
-  const d = loadEditora(); d.stamps.splice(i,1); saveEditora(d); renderStamps();
+function removeStampFromRef(refIdx, stampIdx) {
+  const d = loadEditora();
+  d.refs[refIdx].stamps.splice(stampIdx, 1);
+  saveEditora(d);
+  renderRefs();
+}
+
+const YSTYLE = 'padding:10px 12px;border:1.5px solid var(--wlc-border-warm);border-radius:9px;font:400 13px/1 var(--font-sans);color:var(--wlc-space-cadet);background:white;outline:none;';
+
+function renderRefs() {
+  const d = loadEditora();
+  const el = document.getElementById('refs-list');
+  const empty = document.getElementById('refs-empty');
+  if (!el) return;
+
+  if (!d.refs.length) {
+    el.innerHTML = '';
+    if (empty) empty.style.display = 'block';
+    return;
+  }
+  if (empty) empty.style.display = 'none';
+
+  el.innerHTML = d.refs.map((r, ri) => {
+    const stamps = (r.stamps || []).map((s, si) => `
+      <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-top:1px solid var(--wlc-border-warm);">
+        <div style="font:900 15px/1 var(--font-sans);color:var(--wlc-imperial-red);white-space:nowrap;min-width:38px;padding-top:1px;">${s.time}</div>
+        <div style="font:400 14px/1.5 var(--font-sans);color:var(--wlc-space-cadet);flex:1;">${s.note}</div>
+        <button onclick="removeStampFromRef(${ri},${si})" title="Remover" style="border:none;background:transparent;color:var(--fg3);cursor:pointer;font-size:16px;padding:0 2px;line-height:1;flex-shrink:0;">×</button>
+      </div>
+    `).join('');
+
+    const urlPart = r.url
+      ? `<a href="${r.url}" target="_blank" style="font:400 13px/1 var(--font-sans);color:var(--wlc-green-blue);text-decoration:none;display:block;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${r.url}</a>`
+      : '';
+
+    return `
+    <div style="background:white;border-radius:16px;border:1.5px solid var(--wlc-border-warm);overflow:hidden;box-shadow:var(--shadow-sm);">
+      <!-- Header do card -->
+      <div style="display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--wlc-cream);">
+        <div style="width:36px;height:36px;background:var(--wlc-imperial-red);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 3.19-.23 5.54-.44 6.83-.19 1.15-.99 2.05-2.11 2.26-1.16.23-4.24.41-7.45.41-3.11 0-6.24-.18-7.4-.41-1.12-.21-1.92-1.11-2.11-2.26C2.23 17.54 2 15.19 2 12c0-3.19.23-5.54.44-6.83.19-1.15.99-2.05 2.11-2.26C5.71 2.68 8.79 2.5 12 2.5c3.11 0 6.24.18 7.4.41 1.12.21 1.92 1.11 2.11 2.26z"/></svg>
+        </div>
+        <div style="flex:1;min-width:0;">
+          <div style="font:700 15px/1.2 var(--font-sans);color:var(--wlc-space-cadet);">${r.label}</div>
+          ${urlPart}
+        </div>
+        <button onclick="removeRef(${ri})" title="Remover referência" style="border:none;background:transparent;color:var(--fg3);cursor:pointer;font-size:20px;line-height:1;padding:4px;flex-shrink:0;">×</button>
+      </div>
+
+      <!-- Stamps aninhados -->
+      ${stamps ? `<div style="padding:4px 20px 0;">${stamps}</div>` : ''}
+
+      <!-- Formulário de novo timestamp -->
+      <div style="display:flex;gap:8px;align-items:center;padding:14px 20px;border-top:1px dashed var(--wlc-border-warm);">
+        <div style="font:700 10px/1 var(--font-sans);letter-spacing:0.12em;text-transform:uppercase;color:var(--fg3);white-space:nowrap;">📌 Marcar momento</div>
+        <input id="st-time-${ri}" type="text" placeholder="0:00" maxlength="7"
+          style="${YSTYLE}width:64px;text-align:center;font-weight:900;color:var(--wlc-imperial-red);"
+          onfocus="this.style.borderColor='var(--wlc-imperial-red)'" onblur="this.style.borderColor='var(--wlc-border-warm)'">
+        <input id="st-note-${ri}" type="text" placeholder="O que quero replicar nesse momento?"
+          style="${YSTYLE}flex:1;"
+          onfocus="this.style.borderColor='var(--wlc-imperial-red)'" onblur="this.style.borderColor='var(--wlc-border-warm)'"
+          onkeydown="if(event.key==='Enter') addStampToRef(${ri})">
+        <button onclick="addStampToRef(${ri})"
+          style="padding:9px 16px;background:var(--wlc-space-cadet);color:white;border:none;border-radius:9px;font:700 12px/1 var(--font-sans);cursor:pointer;white-space:nowrap;">
+          Adicionar
+        </button>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 function renderManual() {
@@ -2301,25 +2346,27 @@ function renderManual() {
   const allRules = [...MANUAL_DEFAULTS, ...(d.manual || [])];
   el.innerHTML = allRules.map((m, i) => {
     const isCustom = i >= MANUAL_DEFAULTS.length;
+    const ci = i - MANUAL_DEFAULTS.length;
     return `
-    <div style="display:flex;gap:14px;align-items:flex-start;background:rgba(245,239,232,0.06);border-radius:12px;padding:16px 18px;">
-      <div style="background:${isCustom ? 'var(--wlc-terra-cotta)' : 'var(--wlc-imperial-red)'};color:white;padding:3px 10px;border-radius:999px;font:700 10px/1.4 var(--font-sans);letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;flex-shrink:0;margin-top:2px;">${m.cat}</div>
-      <div style="font:400 15px/1.6 var(--font-sans);color:rgba(245,239,232,0.82);flex:1;" ${isCustom ? `contenteditable="true" onblur="updateManual(${i - MANUAL_DEFAULTS.length}, this.textContent)" style="font:400 15px/1.6 var(--font-sans);color:rgba(245,239,232,0.82);flex:1;outline:none;cursor:text;"` : ''}>${m.rule}</div>
-      ${isCustom ? `<button onclick="removeManual(${i - MANUAL_DEFAULTS.length})" style="width:26px;height:26px;border:none;background:transparent;color:rgba(245,239,232,0.3);cursor:pointer;font-size:15px;border-radius:6px;flex-shrink:0;">×</button>` : ''}
+    <div style="display:flex;gap:14px;align-items:flex-start;background:rgba(245,239,232,0.06);border-radius:12px;padding:16px 20px;">
+      <div style="background:${isCustom ? 'var(--wlc-terra-cotta)' : 'var(--wlc-imperial-red)'};color:white;padding:4px 12px;border-radius:999px;font:700 10px/1.4 var(--font-sans);letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;flex-shrink:0;margin-top:2px;">${m.cat}</div>
+      <div style="font:400 15px/1.65 var(--font-sans);color:rgba(245,239,232,0.85);flex:1;"
+        ${isCustom ? `contenteditable="true" onblur="updateManual(${ci}, this.textContent)" style="font:400 15px/1.65 var(--font-sans);color:rgba(245,239,232,0.85);flex:1;outline:none;cursor:text;"` : ''}
+      >${m.rule}</div>
+      ${isCustom ? `<button onclick="removeManual(${ci})" style="width:26px;height:26px;border:none;background:transparent;color:rgba(245,239,232,0.3);cursor:pointer;font-size:16px;border-radius:6px;flex-shrink:0;">×</button>` : ''}
     </div>`;
   }).join('');
 }
 
 function addManualEntry() {
-  const cat = prompt('Categoria da regra (ex: Cor, Ritmo, Texto, Transição):');
+  const cat  = prompt('Categoria (ex: Cor, Ritmo, Transição, Texto):');
   if (!cat) return;
   const rule = prompt('Qual é a regra?');
   if (!rule) return;
   const d = loadEditora();
   d.manual = d.manual || [];
   d.manual.push({ cat: cat.trim(), rule: rule.trim() });
-  saveEditora(d);
-  renderManual();
+  saveEditora(d); renderManual();
 }
 
 function removeManual(i) {
@@ -2332,10 +2379,8 @@ function updateManual(i, text) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  renderRefs(); renderStamps(); renderManual();
-  // Enter on ref inputs
-  document.getElementById('ref-url')?.addEventListener('keydown', e => { if (e.key === 'Enter') addRef(); });
-  document.getElementById('stamp-note')?.addEventListener('keydown', e => { if (e.key === 'Enter') addStamp(); });
+  renderRefs(); renderManual();
+  document.getElementById('ref-label')?.addEventListener('keydown', e => { if (e.key === 'Enter') addRef(); });
 });
 </script>
 </body>
